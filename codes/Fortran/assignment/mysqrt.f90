@@ -13,7 +13,7 @@ subroutine mysqrt(x,y,kmax)
         implicit none
         real (kind=8), intent(in) :: x
         real (kind=8), intent(out) :: y
-        real (kind=8) :: tol=1.0e-14, s0, delta_s
+        real (kind=8) :: tol, s0, delta_s
         integer, intent(in) :: kmax
         integer ::i
         y=1
