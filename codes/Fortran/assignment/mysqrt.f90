@@ -1,27 +1,28 @@
 program square_root
         implicit none 
-        real (kind=8) :: x1,y1,tol1
+        real (kind=8) :: x1,y1
         integer :: s1,kmax1 
-        s1=1
-        kmax1=100
-        tol1=1.0e-14
+        kmax1=1000
         x1=2
-        call mysqrt(x1,y1)
+        call mysqrt(x1,y1,kmax1)
         print *, "square root is ", y1
 end program square_root
         
-subroutine mysqrt(x,y,s,kmax,tol)
+subroutine mysqrt(x,y,kmax)
  ! calculates the square root of the function using Newton`s method
         implicit none
-        real (kind=8), intent(in) :: x,tol
+        real (kind=8), intent(in) :: x
         real (kind=8), intent(out) :: y
+        real (kind=8) :: tol=1.0e-14, s0, delta_s
         integer, intent(in) :: kmax
-        integer ::i,s0,delta_s
+        integer ::i
+        y=1
+        tol=1.0e-14
         do i=1,kmax
-        s0=y(i)
-        y(i)=0.5*(y(i)+x/y(i))
-        delta_s=y(i)-s0
-        if((abs(delta_s/x))<tol) EXIT
+        s0=y
+        y=0.5d0*(y+x/y)
+        delta_s=y-s0
+        if(abs(delta_s/x).LT.tol) EXIT
         enddo
 end subroutine mysqrt
 
